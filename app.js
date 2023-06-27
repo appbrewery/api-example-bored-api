@@ -10,10 +10,10 @@ const limiter = rateLimit({
 });
 
 app.set("view engine", "html");
+app.set("views", __dirname + "/views");
 app.engine("html", require("ejs").renderFile);
 
 app.use(limiter);
-app.use(express.static(__dirname + "public"));
 
 const data = {
   activities: [
