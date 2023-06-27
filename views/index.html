@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Bored API Documentation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f2f2f2;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    h2 {
+      color: #666;
+    }
+
+    p {
+      margin-bottom: 10px;
+    }
+
+    pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+    }
+
+    code {
+      font-family: Consolas, monospace;
+      font-size: 14px;
+    }
+
+    .endpoint {
+      margin-bottom: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .endpoint h2 {
+      margin-bottom: 5px;
+      color: #FF7F50;
+    }
+
+    .endpoint p {
+      color: #888;
+    }
+
+    .example {
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .get-method {
+      color: #228B22;
+    }
+
+    .request {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .response {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: #f5f5f5;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Bored API Documentation</h1>
+  <p>Welcome to the Bored API by the App Brewery. This is a teaching tool for students of the App Brewery. API Requests
+    are rate limited to 100 requests every 15 minuites.</p>
+  <div class="endpoint">
+    <h2>Get a Random Activity</h2>
+    <p>Returns a randomly selected activity from the available activities.</p>
+    <div class="example">
+      <p><strong>Example Request:</strong></p>
+      <div class="request">
+        <code><span class="get-method">GET</span> https://bored-api.appbrewery.com/random</code>
+      </div>
+      <p><strong>Example Response:</strong></p>
+      <div class="response">
+        <pre><code>{
+  "activity": "Learn Express.js",
+  "availability": 0.25,
+  "type": "education",
+  "participants": 1,
+  "price": 0.1,
+  "accessibility": "Few to no challenges",
+  "duration": "hours",
+  "kidFriendly": true,
+  "link": "https://expressjs.com/",
+  "key": "3943506"
+}</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <h2>Filter Activities</h2>
+    <p>Returns a list of activities filtered by type and/or participants.</p>
+    <p><strong>Query Parameters:</strong></p>
+    <ul>
+      <li><code>type</code> (optional): The type of activity to filter by. Choice of
+        <code>education, recreational, social, charity, cooking, relaxation, busywork</code>.
+      </li>
+      <li><code>participants</code> (optional): The number of participants to filter by. Choice of 1, 2, 3, 4, 5, 6, 8.
+      </li>
+    </ul>
+    <div class="example">
+      <p><strong>Example Request:</strong></p>
+      <div class="request">
+        <code><span class="get-method">GET</span> https://bored-api.appbrewery.com/filter?type=education</code>
+      </div>
+      <p><strong>Example Response:</strong></p>
+      <div class="response">
+        <pre><code>[
+  {
+    "activity": "Learn Express.js",
+    "availability": 0.25,
+    "type": "education",
+    "participants": 1,
+    "price": 0.1,
+    "accessibility": "Few to no challenges",
+    "duration": "hours",
+    "kidFriendly": true,
+    "link": "https://expressjs.com/",
+    "key": "3943506"
+  },
+  {
+    "activity": "Learn React.js",
+    "availability": 0.5,
+    "type": "education",
+    "participants": 1,
+    "price": 0.2,
+    "accessibility": "Some challenges",
+    "duration": "hours",
+    "kidFriendly": true,
+    "link": "https://reactjs.org/",
+    "key": "7890123"
+  }
+]</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="endpoint">
+    <h2>Get Activity by Key</h2>
+    <p>Returns the activity with the specified key.</p>
+    <p><strong>URL Parameters:</strong></p>
+    <ul>
+      <li><code>key</code>: The unique key of the activity.</li>
+    </ul>
+    <div class="example">
+      <p><strong>Example Request:</strong></p>
+      <div class="request">
+        <code><span class="get-method">GET</span> https://bored-api.appbrewery.com/activity/3943506</code>
+      </div>
+      <p><strong>Example Response:</strong></p>
+      <div class="response">
+        <pre><code>{
+  "activity": "Learn Express.js",
+  "availability": 0.25,
+  "type": "education",
+  "participants": 1,
+  "price": 0.1,
+  "accessibility": "Few to no challenges",
+  "duration": "hours",
+  "kidFriendly": true,
+  "link": "https://expressjs.com/",
+  "key": "3943506"
+}</code></pre>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
