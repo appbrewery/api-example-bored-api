@@ -2371,6 +2371,12 @@ const data = {
     },
   ],
 };
+
+//Index Page
+app.get("/", (req, res) => {
+  res.send("Welcome to the Bored API.");
+});
+
 //Get a random activity
 app.get("/random", (req, res) => {
   const randomIndex = Math.floor(Math.random() * data.activities.length);
@@ -2379,44 +2385,40 @@ app.get("/random", (req, res) => {
 
 //Route to retrieve acitivities of a certain type.
 app.get("/filter", (req, res) => {
-  const type = req.query.type;
-  const filteredActivities = data.activities.filter(
-    (activity) => activity.type === type
-  );
-  console.log(filteredActivities);
-  if (filteredActivities.length > 0) {
-    res.json(filteredActivities);
-  } else {
-    res.status(404).json({ error: "Activities not found for the given type." });
-  }
-});
+  let filteredActivities = data.activities;
 
-//Route to retrieve activities by number of participants.
-app.get("/filter", (req, res) => {
-  const participants = req.query.participants;
-  const filteredActivities = data.activities.filter(
-    (activity) => activity.participants === participants
-  );
-  console.log(filteredActivities);
+  if (req.query.type) {
+    filteredActivities = filteredActivities.filter(
+      (activity) => activity.type === req.query.type
+    );
+  }
+  if (req.query.participants) {
+    console.log(req.query.participants);
+    filteredActivities = filteredActivities.filter(
+      (activity) => activity.participants === parseInt(req.query.participants)
+    );
+  }
+
   if (filteredActivities.length > 0) {
     res.json(filteredActivities);
   } else {
-    res.status(404).json({
-      error: "Activities not found for the given number of participants.",
-    });
+    res
+      .status(404)
+      .json({ error: "Activities not found for the given filter." });
   }
 });
 
 // Route to retrieve a specific secret by key
-app.get("/actvity/:key", (req, res) => {
-  const key = parseInt(req.params.key);
+app.get("/activity/:key", (req, res) => {
+  const key = req.params.key;
   data.activities.forEach((activity) => {
-    if (key === activity["key"]) {
+    if (activity.key == key) {
+      console.log(true);
       res.json(activity);
-    } else {
-      res.status(404).json({ error: "Activity not found" });
     }
   });
+
+  res.status(404).json({ error: "Activity not found" });
 });
 
 const port = 4000;
