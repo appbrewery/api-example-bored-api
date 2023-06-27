@@ -10,6 +10,7 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
+app.use(express.static("public"));
 
 const data = {
   activities: [
@@ -2372,9 +2373,9 @@ const data = {
   ],
 };
 
-//Index Page
+//Home Page - API Documentation
 app.get("/", (req, res) => {
-  res.send("Welcome to the Bored API.");
+  res.render("index.html");
 });
 
 //Get a random activity
