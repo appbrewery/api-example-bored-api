@@ -9,8 +9,11 @@ const limiter = rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 
+app.set("view engine", "html");
+app.engine("html", require("ejs").renderFile);
+
 app.use(limiter);
-app.use(express.static("public"));
+app.use(express.static(__dirname + "public"));
 
 const data = {
   activities: [
